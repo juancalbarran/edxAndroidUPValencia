@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.mislugares.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_name" />
+
+        <EditText
+            android:id="@+id/nameValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLabel"
+            android:hint="@string/hint_name" />
+
+        <TextView
+            android:id="@+id/nameType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameValue"
+            android:text="@string/label_type" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/tipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameValue"
+            android:layout_toEndOf="@+id/nameType"
+            android:layout_toRightOf="@+id/nameType" />
+
+        <TextView
+            android:id="@+id/nameAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameType"
+            android:text="@string/label_address" />
+
+        <EditText
+            android:id="@+id/addressValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameAddress"
+            android:hint="@string/hint_address" />
+
+        <TextView
+            android:id="@+id/namePhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addressValue"
+            android:text="@string/label_phone" />
+
+        <EditText
+            android:id="@+id/phoneValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addressValue"
+            android:layout_toEndOf="@id/namePhone"
+            android:layout_toRightOf="@id/namePhone"
+            android:hint="@string/hint_phone"
+            android:inputType="phone" />
+
+        <TextView
+            android:id="@+id/nameUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneValue"
+            android:text="@string/label_url" />
+
+        <EditText
+            android:id="@+id/urlValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameUrl"
+            android:hint="@string/hint_url"
+            android:inputType="textUri" />
+
+        <TextView
+            android:id="@+id/nameComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/urlValue"
+            android:text="@string/label_comment" />
+
+        <EditText
+            android:id="@+id/commentValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameComment"
+            android:hint="@string/hint_comments"
+            android:inputType="textMultiLine" />
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
