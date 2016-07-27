@@ -23,6 +23,8 @@
             android:label="Acerca de ..."
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".PreferenciasActivity" />
+        <activity android:name=".VistaLugarActivity"/>
+        <activity android:name=".EdicionLugarActivity"/>
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@
             android:text="@string/label_name" />
 
         <EditText
-            android:id="@+id/nameValue"
+            android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameLabel"
@@ -29,14 +29,14 @@
             android:id="@+id/nameType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameValue"
+            android:layout_below="@id/nombre"
             android:text="@string/label_type" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/tipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nameValue"
+            android:layout_below="@+id/nombre"
             android:layout_toEndOf="@+id/nameType"
             android:layout_toRightOf="@+id/nameType" />
 
@@ -48,7 +48,7 @@
             android:text="@string/label_address" />
 
         <EditText
-            android:id="@+id/addressValue"
+            android:id="@+id/direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameAddress"
@@ -58,14 +58,14 @@
             android:id="@+id/namePhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/addressValue"
+            android:layout_below="@id/direccion"
             android:text="@string/label_phone" />
 
         <EditText
-            android:id="@+id/phoneValue"
+            android:id="@+id/telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/addressValue"
+            android:layout_below="@id/direccion"
             android:layout_toEndOf="@id/namePhone"
             android:layout_toRightOf="@id/namePhone"
             android:hint="@string/hint_phone"
@@ -75,11 +75,11 @@
             android:id="@+id/nameUrl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/phoneValue"
+            android:layout_below="@id/telefono"
             android:text="@string/label_url" />
 
         <EditText
-            android:id="@+id/urlValue"
+            android:id="@+id/url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameUrl"
@@ -90,11 +90,11 @@
             android:id="@+id/nameComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/urlValue"
+            android:layout_below="@id/url"
             android:text="@string/label_comment" />
 
         <EditText
-            android:id="@+id/commentValue"
+            android:id="@+id/comentario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameComment"
