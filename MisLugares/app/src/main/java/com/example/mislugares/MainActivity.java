@@ -3,12 +3,15 @@ package com.example.mislugares;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -19,45 +22,23 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button bAcercaDe;
-    private Button bSalir;
-    private Button bPreferencias;
-    private Button bMostrarLugares;
+    private RecyclerView recyclerView;
+    public AdaptadorLugares adaptador;
+    private RecyclerView.LayoutManager layoutManager;
+
     public static Lugares lugares = new LugaresVector();
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bAcercaDe = (Button) findViewById(R.id.aboutButton);
-        bAcercaDe.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                lanzarAcercaDe(null);
-            }
-        });
-
-        bMostrarLugares = (Button) findViewById(R.id.showPlacesButton);
-        bMostrarLugares.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                mostrarPreferencias(null);
-            }
-        });
-
-        bPreferencias = (Button) findViewById(R.id.preferencesButton);
-        bPreferencias.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                lanzarPreferencias(null);
-            }
-        });
-
-        bSalir = (Button) findViewById(R.id.exitButton);
-        bSalir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                salir(null);
-            }
-        });
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        adaptador = new AdaptadorLugares(this, lugares);
+        recyclerView.setAdapter(adaptador);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,6 +51,57 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        adaptador.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, VistaLugarActivity.class);
+                i.putExtra("id", (long) recyclerView.getChildAdapterPosition(v));
+                startActivity(i);
+            }
+        });
+
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+        mp = MediaPlayer.create(this, R.raw.audio);
+        mp.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onPause() {
+        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show();
+        mp.pause();
+        mp.start();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,11 +127,27 @@ public class MainActivity extends AppCompatActivity {
             lanzarPreferencias(null);
             return true;
         }
-        if(id == R.id.menu_buscar) {
+        if (id == R.id.menu_buscar) {
             lanzarVistaLugar(null);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override protected void onSaveInstanceState(Bundle estadoGuardado){
+        super.onSaveInstanceState(estadoGuardado);
+        if (mp != null) {
+            int pos = mp.getCurrentPosition();
+            estadoGuardado.putInt("posicion", pos);
+        }
+    }
+
+    @Override protected void onRestoreInstanceState(Bundle estadoGuardado){
+        super.onRestoreInstanceState(estadoGuardado);
+        if (estadoGuardado != null && mp != null) {
+            int pos = estadoGuardado.getInt("posicion");
+            mp.seekTo(pos);
+        }
     }
 
     public void lanzarAcercaDe(View view) {
@@ -116,15 +164,15 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void mostrarPreferencias(View view){
+    public void mostrarPreferencias(View view) {
         SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(this);
-        String s = "notificaciones: "+ pref.getBoolean("notificaciones",true)
-                +", máximo a listar: " + pref.getString("maximo","?");
+        String s = "notificaciones: " + pref.getBoolean("notificaciones", true)
+                + ", máximo a listar: " + pref.getString("maximo", "?");
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    public void lanzarVistaLugar(View view){
+    public void lanzarVistaLugar(View view) {
         final EditText entrada = new EditText(this);
         entrada.setText("0");
         new AlertDialog.Builder(this)
@@ -137,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent i = new Intent(MainActivity.this, VistaLugarActivity.class);
                         i.putExtra("id", id);
                         startActivity(i);
-                    }})
+                    }
+                })
                 .setNegativeButton("Cancelar", null)
                 .show();
     }
